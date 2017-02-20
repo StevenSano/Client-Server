@@ -23,10 +23,8 @@ int main(int ac, char **av)
 		fprintf(stderr, "ERROR, no port provided\n");
 		exit(1);
 	}
-/*
-**	 int socket(int domain, int type, int protocol);
-**
-*/
+
+
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0)
 		error("ERROR opening socket");
@@ -34,7 +32,7 @@ int main(int ac, char **av)
 	bzero((char*) &serv_addr, sizeof(serv_addr));
 	portno = atoi(av[1]);
 
-	serv_addr.sin_family = AF_INET;				//	ipv4 internet protocal
+	serv_addr.sin_family = AF_INET;				//
 	serv_addr.sin_addr.s_addr = INADDR_ANY;		//
 	serv_addr.sin_port = htons(portno);			//
 /*
@@ -48,11 +46,12 @@ int main(int ac, char **av)
 		error("ERROR on binding");
 	listen(sockfd, 5);
 
-/** 	accept(int socket, struct sockaddr *restrict address, socklen_t *restrict address_len);
-**		------------------------------------------------------
-**
-**/
 	clilen = sizeof(cli_addr);
+
+	/** 	accept(int socket, struct sockaddr *restrict address, socklen_t *restrict address_len);
+	**		------------------------------------------------------
+	**
+	**/
 	newsockfd = accept(sockfd, (struct sockaddr*)&cli_addr, &clilen);
 
 	if (newsockfd < 0)
